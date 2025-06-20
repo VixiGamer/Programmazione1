@@ -12,7 +12,7 @@ public class Main {
 		
 		System.out.println(calcolatrice.Somma(1.3, 2.5));
 		
-		System.out.println(calcolatrice.Somma("Tre", "Due"));
+		System.out.println(calcolatrice.Somma("Uno", "Due"));
 		
 
 	}
