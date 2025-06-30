@@ -12,11 +12,11 @@ public class Posta {
 	}
 	
 	static void chiEIlProssimo() {
-		System.out.println("Il prossimo ad essere servito è: " + coda.peek());
+		System.out.println("Il prossimo ad essere servito è: " + coda.peek().getNome());
 	}
 	
 	static void servireProssimo() {
-		System.out.println("E' satto servito: " + coda.poll());
+		System.out.println("E' satto servito: " + coda.poll().getNome());
 	}
 	
 	static void mostraCoda() {
