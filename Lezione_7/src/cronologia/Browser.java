@@ -17,6 +17,8 @@ public class Browser {
 		} else {
 			System.out.println("Nessuna pagina precedente.");
 		}
+		
+		//Gestire il caso in cui la coda e vuota
 	}
 	
 	void printHistory() {

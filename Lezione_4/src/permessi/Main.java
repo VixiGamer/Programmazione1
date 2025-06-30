@@ -6,11 +6,22 @@ public class Main {
 		
 		GestioneUtenti sistema = new GestioneUtenti();
 		
-		Cliente c1 = new Cliente("VPN", "vpn@gmail.com");
-		Clinete c2 = new Clinete("PG", "pg@gmail.com");
+		//Creo 2 Clineti
+		Cliente c1 = new Cliente("EA", "ea@gmai.com");
+		Cliente c2 = new Cliente("PG", "pg@gmail.com");
 		
-		Admin a1 = new Admin("EA", "ea@gmai.com");
-		Admin a2 = new Admin("SE", "se@gmai.com");
+		//Creo 2 Admin
+		Admin a1 = new Admin("VPN", "vpn@gmail.com");
+		Admin a2 = new Admin("SPN", "spn@gmail.com");
+		
+		//Li aggiungo al sistema
+		sistema.aggiungiUtente(c1);
+		sistema.aggiungiUtente(c2);
+		sistema.aggiungiUtente(a1);
+		sistema.aggiungiUtente(a2);
+		
+		//Stampo i permessi
+		sistema.stampaPermessi();
 		
 		/*----------------------DA COMPLETARE---------------------------*/
 	}
