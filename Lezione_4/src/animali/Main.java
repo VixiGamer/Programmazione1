@@ -16,8 +16,6 @@ public class Main {
 		Rifuggio.aggiungiAnimale(g1);
 		Rifuggio.aggiungiAnimale(g2);
 		
-		
-		
 		Rifuggio.stampaVersi();
 		
 		

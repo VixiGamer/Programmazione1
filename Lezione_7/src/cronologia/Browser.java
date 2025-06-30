@@ -6,11 +6,11 @@ public class Browser {
 	
 	private static Stack<String> pila = new Stack<>();
 	
-	static void visitPage(String url) {
+	void visitPage(String url) {
 		pila.push(url);
 	}
 	
-	static void goBack() {
+	void goBack() {
 		pila.pop();
 		if (pila.size() > 0) {
 			System.out.println("Ultima pagina visitata: " + pila.peek());
@@ -19,7 +19,7 @@ public class Browser {
 		}
 	}
 	
-	static void printHistory() {
+	void printHistory() {
 		System.out.println("Cronologia: ");
 		
 		for(int i=pila.size()-1; i >=0 ;i-- ) 
