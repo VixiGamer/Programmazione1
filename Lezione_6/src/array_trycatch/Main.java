@@ -16,7 +16,7 @@ public class Main {
 			System.out.println("In numero " + "'" +  n1 + "'" + " è associato a " + "'" + prodotti[n1] + "'");
 		}
 		catch(ArrayIndexOutOfBoundsException e) {
-			System.out.print("In numero " + "'" +  n1 + "'" + " NON è associato a NESSUNO");
+			System.out.print("In numero " + "'" +  n1 + "'" + " NON è associato a NESSUNO" + "\n ERRORE: " + e.getMessage());
 		}
 		finally {
 			scanner.close();
