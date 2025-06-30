@@ -23,7 +23,6 @@ public class Main {
 		//Stampo i permessi
 		sistema.stampaPermessi();
 		
-		/*----------------------DA COMPLETARE---------------------------*/
 	}
 
 }
