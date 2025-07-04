@@ -21,9 +21,7 @@ public class Main {
 		}
 		
 		s1.autentica("studente123");
-		p1.autentica("prof1990");
-		
-		
+		p1.autentica("prof1990");	
 
 	}
 

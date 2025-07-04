@@ -32,10 +32,7 @@ public class Utente {
 	}
 
 	public void autentica(String string) throws AutenticazioneException {
-		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 }
