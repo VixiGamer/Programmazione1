@@ -1,13 +1,13 @@
-package libro;
+package Libro;
 
-public class libro {
+public class Libro {
 	String nome;
 	String autore;
 	int anno;
 
 
 
-	public libro(String nome, String autore, int anno) {
+	public Libro(String nome, String autore, int anno) {
 		this.nome = nome;
 		this.autore = autore;
 		this.anno = anno;
