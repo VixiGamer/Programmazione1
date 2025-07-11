@@ -117,6 +117,7 @@ public class Main {
         btnPasseggero.addActionListener(e -> {
             modalitaPasseggero[0] = true;
             lblModalita.setText("Modalità: Passeggero");
+            btnAggiungi.setText("Paga");
             lblCF.setVisible(true);
             txtCF.setVisible(true);
             lblDestinazione.setVisible(true);
@@ -131,6 +132,7 @@ public class Main {
         btnAutista.addActionListener(e -> {
             modalitaPasseggero[0] = false;
             lblModalita.setText("Modalità: Autista");
+            btnAggiungi.setText("Aggiungi");
             lblCF.setVisible(false);
             txtCF.setVisible(false);
             lblDestinazione.setVisible(false);
