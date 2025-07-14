@@ -10,7 +10,7 @@ public class AddFrame extends JFrame {
 
     public AddFrame(JFrame parent, GestoreGiochi gestore, Runnable onAddCallback) {
         setTitle("Aggiungi Nuovo Gioco");
-        setSize(400, 350); // Aumentata l'altezza per migliore visualizzazione con le validazioni
+        setSize(400, 280); // Aumentata l'altezza per migliore visualizzazione con le validazioni
         setLocationRelativeTo(parent);
         setLayout(new GridBagLayout()); // Passato a GridBagLayout per un controllo più fine
         setResizable(false);
@@ -28,16 +28,15 @@ public class AddFrame extends JFrame {
 
         confermaBtn.addActionListener(e -> {
             try {
-                String nome = nomeField.getText().trim();
-                String link = linkField.getText().trim();
+                String nome = nomeField.getText().trim(); // Rimuovi spazi extra
+                String link = linkField.getText().trim(); // Rimuovi spazi extra
 
-                // Validazione nome
+                // Validazioni input
                 if (nome.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Il nome non può essere vuoto.", "Errore di Input", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                // Validazione prezzo
                 double prezzo;
                 try {
                     prezzo = Double.parseDouble(prezzoField.getText());
@@ -65,6 +64,7 @@ public class AddFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Gioco \"" + nome + "\" aggiunto con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (Exception ex) {
+                // Questo catch generico è un fallback, le validazioni specifiche sopra sono preferibili
                 JOptionPane.showMessageDialog(this, "Si è verificato un errore durante l'aggiunta del gioco: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -86,7 +86,18 @@ public class AddFrame extends JFrame {
         gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.1; add(new JLabel("Link Steam:"), gbc);
         gbc.gridx = 1; gbc.gridy = row++; gbc.weightx = 0.9; add(linkField, gbc);
 
-        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; gbc.weightx = 1.0; add(confermaBtn, gbc);
+        // Aggiungi un po' di spazio prima del pulsante per mantenere la spaziatura desiderata
+        gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2; gbc.weighty = 0.1; add(Box.createVerticalGlue(), gbc);
+
+        // Aggiunta del pulsante "Aggiungi Gioco"
+        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; // Il pulsante occupa entrambe le colonne
+        gbc.weightx = 1.0; gbc.anchor = GridBagConstraints.CENTER; // Centra il pulsante
+        add(confermaBtn, gbc);
+        row++;
+
+        // Aggiungi spazio verticale flessibile sotto il pulsante per spingere tutto in alto
+        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; gbc.weighty = 1.0; gbc.fill = GridBagConstraints.BOTH;
+        add(Box.createVerticalGlue(), gbc);
 
         setVisible(true);
     }

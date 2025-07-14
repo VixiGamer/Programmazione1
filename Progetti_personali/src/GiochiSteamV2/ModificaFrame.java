@@ -28,7 +28,7 @@ public class ModificaFrame extends JFrame {
         JComboBox<Gioco.ListaGioco> listaBox = new JComboBox<>(Gioco.ListaGioco.values());
         JTextField linkField = new JTextField(20);
         JButton confermaBtn = new JButton("Salva Modifiche");
-        JButton eliminaBtn = new JButton("❌ Elimina Gioco");
+        // Rimosso il pulsante "Elimina Gioco" da ModificaFrame
 
         giocoBox.addActionListener(e -> {
             Gioco g = (Gioco) giocoBox.getSelectedItem();
@@ -98,25 +98,6 @@ public class ModificaFrame extends JFrame {
             dispose();
         });
 
-        eliminaBtn.addActionListener(e -> {
-            Gioco g = (Gioco) giocoBox.getSelectedItem();
-            if (g == null) {
-                JOptionPane.showMessageDialog(this, "Seleziona un gioco da eliminare.", "Errore", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "Sei sicuro di voler eliminare il gioco \"" + g.getNome() + "\"?",
-                    "Conferma Eliminazione", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                gestore.rimuoviGioco(g);
-                onModificaCallback.run();
-                JOptionPane.showMessageDialog(this, "Gioco eliminato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            }
-        });
-
         int row = 0;
         gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.1; add(new JLabel("Seleziona Gioco:"), gbc);
         gbc.gridx = 1; gbc.gridy = row++; gbc.weightx = 0.9; add(giocoBox, gbc);
@@ -136,8 +117,8 @@ public class ModificaFrame extends JFrame {
         gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.1; add(new JLabel("Link Steam:"), gbc);
         gbc.gridx = 1; gbc.gridy = row++; gbc.weightx = 0.9; add(linkField, gbc);
 
-        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 1; gbc.weightx = 0.5; add(confermaBtn, gbc);
-        gbc.gridx = 1; gbc.gridy = row++; gbc.gridwidth = 1; gbc.weightx = 0.5; add(eliminaBtn, gbc);
+        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; gbc.weightx = 1.0; add(confermaBtn, gbc);
+        row++;
 
         // Componente "invisibile" per assorbire spazio extra in basso
         gbc.gridx = 0;
