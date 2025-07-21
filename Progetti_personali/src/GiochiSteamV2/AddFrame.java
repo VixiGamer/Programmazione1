@@ -28,31 +28,48 @@ public class AddFrame extends JFrame {
 
         confermaBtn.addActionListener(e -> {
             try {
-                String nome = nomeField.getText().trim(); // Rimuovi spazi extra
-                String link = linkField.getText().trim(); // Rimuovi spazi extra
+                String nome = nomeField.getText().trim();
+                String prezzoStr = prezzoField.getText().trim();
+                String link = linkField.getText().trim();
 
-                // Validazioni input
+                // Validazione input base
                 if (nome.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Il nome non può essere vuoto.", "Errore di Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Il campo 'Nome' non può essere vuoto.", "Errore di Validazione", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-
+                if (prezzoStr.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Il campo 'Prezzo' non può essere vuoto.", "Errore di Validazione", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 double prezzo;
                 try {
-                    prezzo = Double.parseDouble(prezzoField.getText());
+                    prezzo = Double.parseDouble(prezzoStr);
                     if (prezzo < 0) {
-                        JOptionPane.showMessageDialog(this, "Il prezzo non può essere negativo.", "Errore di Input", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Il prezzo non può essere negativo.", "Errore di Validazione", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Prezzo non valido. Inserire un numero.", "Errore di Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Il prezzo deve essere un numero valido.", "Errore di Validazione", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                // Validazione link Steam se lo shop è Steam
-                if (link.isEmpty() && ((Gioco.ListaShop) Objects.requireNonNull(shopBox.getSelectedItem())) == Gioco.ListaShop.Steam) {
-                    JOptionPane.showMessageDialog(this, "Il link Steam non può essere vuoto se lo shop è Steam.", "Errore di Input", JOptionPane.ERROR_MESSAGE);
-                    return;
+                // Controllo duplicati
+                if (!link.isEmpty()) {
+                    // Se il link è fornito, controlla per link Steam duplicati
+                    for (Gioco existingGioco : gestore.getTuttiIGiochi()) {
+                        if (!existingGioco.getSteamlink().trim().isEmpty() && existingGioco.getSteamlink().trim().equalsIgnoreCase(link)) {
+                            JOptionPane.showMessageDialog(this, "Un gioco con lo stesso link Steam esiste già: " + existingGioco.getNome(), "Errore di Duplicazione", JOptionPane.ERROR_MESSAGE);
+                            return; // Blocca l'aggiunta
+                        }
+                    }
+                } else {
+                    // Se il link non è fornito, controlla per nome duplicato
+                    for (Gioco existingGioco : gestore.getTuttiIGiochi()) {
+                        if (existingGioco.getNome().trim().equalsIgnoreCase(nome)) {
+                            JOptionPane.showMessageDialog(this, "Un gioco con lo stesso nome esiste già e il link Steam non è stato fornito.", "Errore di Duplicazione", JOptionPane.ERROR_MESSAGE);
+                            return; // Blocca l'aggiunta
+                        }
+                    }
                 }
 
                 Gioco.ListaShop shop = (Gioco.ListaShop) Objects.requireNonNull(shopBox.getSelectedItem());
@@ -64,7 +81,6 @@ public class AddFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Gioco \"" + nome + "\" aggiunto con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (Exception ex) {
-                // Questo catch generico è un fallback, le validazioni specifiche sopra sono preferibili
                 JOptionPane.showMessageDialog(this, "Si è verificato un errore durante l'aggiunta del gioco: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -87,17 +103,14 @@ public class AddFrame extends JFrame {
         gbc.gridx = 1; gbc.gridy = row++; gbc.weightx = 0.9; add(linkField, gbc);
 
         // Aggiungi un po' di spazio prima del pulsante per mantenere la spaziatura desiderata
-        gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2; gbc.weighty = 0.1; add(Box.createVerticalGlue(), gbc);
+        gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE; // Non espandere questo componente
+        gbc.anchor = GridBagConstraints.CENTER; // Centra lo spazio
+        add(Box.createVerticalStrut(10), gbc); // Spazio verticale
 
-        // Aggiunta del pulsante "Aggiungi Gioco"
         gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; // Il pulsante occupa entrambe le colonne
-        gbc.weightx = 1.0; gbc.anchor = GridBagConstraints.CENTER; // Centra il pulsante
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Il pulsante si espande orizzontalmente
         add(confermaBtn, gbc);
-        row++;
-
-        // Aggiungi spazio verticale flessibile sotto il pulsante per spingere tutto in alto
-        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; gbc.weighty = 1.0; gbc.fill = GridBagConstraints.BOTH;
-        add(Box.createVerticalGlue(), gbc);
 
         setVisible(true);
     }

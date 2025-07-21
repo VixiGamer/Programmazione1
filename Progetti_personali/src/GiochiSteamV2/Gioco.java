@@ -49,8 +49,8 @@ public class Gioco implements Serializable {
 	public enum ListaShop {
 		Steam,
 		InstantGaming,
-		G2A,
-		Kinguin
+		Kinguin,
+		G2A
 	}
 
 

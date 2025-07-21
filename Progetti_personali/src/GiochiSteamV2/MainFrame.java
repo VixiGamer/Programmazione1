@@ -47,6 +47,12 @@ public class MainFrame extends JFrame {
         JButton aggiungiBtn = new JButton("➕ Aggiungi gioco");
         JButton modificaBtn = new JButton("✏️ Modifica gioco");
         JButton eliminaPrincipaleBtn = new JButton("🗑️ Elimina gioco");
+        JButton cercaBtn = new JButton("🔍 Cerca Gioco"); // NUOVO PULSANTE CERCA
+
+	     // Azione per il nuovo pulsante Cerca
+	     cercaBtn.addActionListener(e -> {
+	         new SearchFrame(this, gestore); // Passa il gestore al SearchFrame
+	     });
 
         aggiungiBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
         modificaBtn.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -55,6 +61,7 @@ public class MainFrame extends JFrame {
         navbar.add(aggiungiBtn);
         navbar.add(modificaBtn);
         navbar.add(eliminaPrincipaleBtn);
+        navbar.add(cercaBtn); // Aggiungi il pulsante "Cerca" alla navbar
         add(navbar, BorderLayout.NORTH);
 
         aggiungiBtn.addActionListener(e -> new AddFrame(this, gestore, this::aggiornaListe));
